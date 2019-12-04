@@ -18,6 +18,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="app">
@@ -76,5 +83,7 @@
             @yield('content')
         </main>
     </div>
+
+    @yield('scripts')
 </body>
 </html>
