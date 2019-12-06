@@ -4,22 +4,37 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\User;
+
 class SpinController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
+        $spins = $request->input('spins', 1);
+
+        $user = User::find(auth()->user()->id);
+        
         $prizes = array('A' => 100000, 'B' => 250000, 'C' => 400000, 'D' => 1000000);
         $weights = array('A' => 50, 'B' => 25, 'C' => 10, 'D' => 5);
         $results = array();
-        
-        for ($i = 1; $i <= 3; $i++) {
-            $results[] = $this->getRandomWeightedElement($weights);
+
+        if ($user->spins < $spins) {
+            // Not enough spins left, error
+            $results['error'] = 'Not enough spins';
         }
-        $cash = 0;
-        foreach ($results as $value) {
-            $cash += $prizes[$value];
+        else {
+            for ($i = 1; $i <= 3; $i++) {
+                $results[] = $this->getRandomWeightedElement($weights);
+            }
+            $cash = 0;
+            foreach ($results as $value) {
+                $cash += $prizes[$value];
+            }
+            $user->spins -= $spins;
+            $user->save();
+            $results['spins'] = $user->spins;
+            $results['cash_win'] = $cash;
+            $results['success'] = 'Spin Complete';
         }
-        $results['cash'] = $cash;
-        $results['success'] = 'Spin Complete';
         return response()->json($results);
     }
 

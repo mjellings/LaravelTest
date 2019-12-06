@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Game</div>
+                <div class="card-header">Game Spins: <span id="spins_remiaining">{{ Auth::user()->spins }}</span></div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -52,10 +52,11 @@
            data:{"_token": "{{ csrf_token() }}"},
            success:function(data){
               if (data.success) {
+                jQuery('#spins_remiaining').html(data['spins']);
                 jQuery('#spin1').html(data[0]);
                 jQuery('#spin2').html(data[1]);
                 jQuery('#spin3').html(data[2]);
-                jQuery('#win').html('$' + data['cash']);
+                jQuery('#win').html('$' + data['cash_win']);
               }
            }, 
            error:function(data) {
