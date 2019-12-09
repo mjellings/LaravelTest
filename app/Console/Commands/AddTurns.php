@@ -38,6 +38,7 @@ class AddTurns extends Command
      */
     public function handle()
     {
+        $user_count = 0;
         $turns_each = 5;
         foreach (User::all() as $user) {
             $user->turns += $turns_each;
@@ -45,6 +46,8 @@ class AddTurns extends Command
                 $user->turns = $user->turns_stored_max;
             }
             $user->save();
+            $user_count++;
         }
+        $this->info('Processed ' . $user_count . ' users.');
     }
 }
