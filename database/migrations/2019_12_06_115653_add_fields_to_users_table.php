@@ -14,8 +14,10 @@ class AddFieldsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('spins')->default(30);
-            $table->integer('spins_max')->default(3);
+            $table->bigInteger('cash')->unsigned()->default('0');
+            $table->integer('turns_stored_max')->unsigned()->default(50);
+            $table->integer('turns')->unsigned()->default(30);
+            $table->integer('turns_roll_max')->unsigned()->default(3);
         });
     }
 
@@ -27,8 +29,10 @@ class AddFieldsToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('spins_max');
-            $table->dropColumn('spins');
+            $table->dropColumn('cash');
+            $table->dropColumn('turns_roll_max');
+            $table->dropColumn('turns');
+            $table->dropColumn('turns_stored_max');
         });
     }
 }

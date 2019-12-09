@@ -9,7 +9,7 @@ use App\User;
 class SpinController extends Controller
 {
     public function index(Request $request) {
-        $spins = $request->input('spins', 1);
+        $turns = $request->input('turns', 1);
 
         $user = User::find(auth()->user()->id);
         
@@ -17,7 +17,7 @@ class SpinController extends Controller
         $weights = array('A' => 50, 'B' => 25, 'C' => 10, 'D' => 5);
         $results = array();
 
-        if ($user->spins < $spins) {
+        if ($user->turns < $turns) {
             // Not enough spins left, error
             $results['error'] = 'Not enough spins';
         }
@@ -29,10 +29,12 @@ class SpinController extends Controller
             foreach ($results as $value) {
                 $cash += $prizes[$value];
             }
-            $user->spins -= $spins;
+            $user->turns -= $turns;
+            $user->cash += $cash;
             $user->save();
-            $results['spins'] = $user->spins;
-            $results['cash_win'] = $cash;
+            $results['turns'] = $user->turns;
+            $results['cash_win'] = number_format($cash, 0, '.', ',');
+            $results['cash'] = number_format($user->cash, 0, '.', ',');
             $results['success'] = 'Spin Complete';
         }
         return response()->json($results);
