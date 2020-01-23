@@ -16,6 +16,8 @@
                     <table cellpadding="5" cellspacing="2">
                         <thead>
                             <tr>
+                                <th>Game ID</th>
+                                <th>Win Odds</th>
                                 <th>Start</th>
                                 <th>Finish</th>
                                 <th>Plays</th>
@@ -26,15 +28,24 @@
                             <?php
                             $settings = $game['settings'];
                             $final_play = $game['final_play'];
-                            $plays = $game['plays'];
+                            $turns = $game->turns;
                             ?>
                             <tr>
-                                <td>&pound; {{ number_format($settings['start_cash'], 2, '.', ',') }}</td>
-                                <td>&pound; {{ number_format($final_play['balance_new'], 2, '.', ',') }}</td>
-                                <td>{{ count($plays) }}</td>
+                                <td><a href="/test/{{ $game->id }}">{{ $game->id }}</a></td>
+                                <td>{{ number_format($game->win_odd, 2) }} %</td>
+                                <td>&pound; {{ number_format($game->start, 2, '.', ',') }}</td>
+                                <td>&pound; {{ number_format($game->finish, 2, '.', ',') }}</td>
+                                <td>{{ count($turns) }}</td>
                             </tr>
                             @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4">
+                                    {{ $games->links() }}
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
 
                 </div>

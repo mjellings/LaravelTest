@@ -3,25 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Roulette;
+use App\RouletteGame;
+use App\RouletteTurn;
 use Illuminate\Http\Request;
 
 class RouletteController extends Controller
 {
     public function index() {
-        $start_cash = 100;
-        $start_bet = 0.1;
-        $max_plays = 100;
-        $win_odd = 4865;
-
-        $total_games = 100;
-
         $data = array();
-        for ($i = 1; $i <= $total_games; $i++) {
-            $game = new Roulette($start_cash, $start_bet, $max_plays, $win_odd);
-            $data['games'][] = $game->playAll();
-            $game = null;
-        }
-
+        $data['games'] = RouletteGame::orderBy('id', 'DESC')->paginate(25);
         return view('test', $data);
+    }
+
+    public function view($id) {
+        $game = RouletteGame::findOrFail($id);
+        $data = array();
+        $data['game'] = $game;
+        return view('test-view', $data);
     }
 }
