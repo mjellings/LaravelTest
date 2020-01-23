@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/spin', 'SpinController@index')->name('spin');
+
+Route::get('/test', 'RouletteController@index')->name('test');

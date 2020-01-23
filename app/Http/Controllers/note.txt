@@ -1,0 +1,25 @@
+<tr style="display: none;">
+                                <td colspan="3">
+                                    <table cellpadding="5" cellspacing="0" class="collapse-one">
+                                        <thead>
+                                            <tr>
+                                                <th>Turn</th>
+                                                <th>Balance</th>
+                                                <th>Bet</th>
+                                                <th>Result</th>
+                                                <th>New Balance</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($plays as $play)
+                                            <tr>
+                                                <td class="{{ $play['result'] }}">{{ $loop->iteration }}</td>
+                                                <td class="{{ $play['result'] }}">&pound; {{ number_format($play['balance'], 2, '.', ',') }}</td>
+                                                <td class="{{ $play['result'] }}">&pound; {{ number_format($play['bet'], 2, '.', ',') }}</td>
+                                                <td class="{{ $play['result'] }}">{{ $play['result'] }}</td>
+                                                <td class="{{ $play['result'] }}">&pound; {{ number_format($play['balance_new'], 2, '.', ',') }}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                </td>
+                            </tr>
