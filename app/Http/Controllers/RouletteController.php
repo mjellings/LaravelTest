@@ -6,12 +6,13 @@ use App\Roulette;
 use App\RouletteGame;
 use App\RouletteTurn;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RouletteController extends Controller
 {
     public function index() {
         $data = array();
-        $data['games'] = RouletteGame::orderBy('id', 'DESC')->paginate(25);
+        $data['games'] = RouletteGame::orderBy('id', 'DESC')->simplePaginate(25);
         return view('test', $data);
     }
 
