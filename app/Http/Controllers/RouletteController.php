@@ -12,7 +12,7 @@ class RouletteController extends Controller
 {
     public function index() {
         $data = array();
-        $data['games'] = RouletteGame::orderBy('id', 'DESC')->simplePaginate(25);
+        $data['games'] = RouletteGame::with('turns')->orderBy('id', 'DESC')->simplePaginate(25);
         return view('test', $data);
     }
 
