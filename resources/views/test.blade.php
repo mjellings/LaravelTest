@@ -9,7 +9,7 @@
         </style>
         
         
-        <div class="col-md-12" style="margin-bottom: 10px;">
+        <div class="col-md-6" style="margin-bottom: 10px;">
             <div class="card">
 
                 <div class="card-body">
@@ -48,6 +48,20 @@
                         </tfoot>
                     </table>
 
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6" style="margin-bottom: 10px;">
+            <div class="card">
+                <div class="card-header">Statistics</div>
+                <div class="card-body">
+                    Total Games: {{ $total_games }}<br />
+                    Total Wins: {{ $total_win }}<br />
+                    Total Lose: {{ $total_lose }}<br />
+                    Total Break Even: {{ $total_even }}<br />
+                    Biggest Win %: {{ $biggest_win_perc }}<br />
+                    Biggest Win &pound;: {{ $biggest_win_amount }}<br />
                 </div>
             </div>
         </div>
