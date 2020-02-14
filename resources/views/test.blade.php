@@ -31,11 +31,11 @@
                             $turns = $game->turns;
                             ?>
                             <tr>
-                                <td><a href="/test/{{ $game->id }}">{{ $game->id }}</a></td>
-                                <td>{{ number_format($game->win_odd, 2) }} %</td>
-                                <td>&pound; {{ number_format($game->start, 2, '.', ',') }}</td>
-                                <td>&pound; {{ number_format($game->finish, 2, '.', ',') }}</td>
-                                <td>{{ count($turns) }}</td>
+                                <td class="{{ ($game->finish > $game->start) ? 'win' : 'lose' }}"><a href="/test/{{ $game->id }}">{{ $game->id }}</a></td>
+                                <td class="{{ ($game->finish > $game->start) ? 'win' : 'lose' }}">{{ number_format($game->win_odd, 2) }} %</td>
+                                <td class="{{ ($game->finish > $game->start) ? 'win' : 'lose' }}">&pound; {{ number_format($game->start, 2, '.', ',') }}</td>
+                                <td class="{{ ($game->finish > $game->start) ? 'win' : 'lose' }}">&pound; {{ number_format($game->finish, 2, '.', ',') }}</td>
+                                <td class="{{ ($game->finish > $game->start) ? 'win' : 'lose' }}">{{ count($turns) }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -61,7 +61,8 @@
                     Total Lose: {{ $total_lose }}<br />
                     Total Break Even: {{ $total_even }}<br />
                     Biggest Win %: {{ $biggest_win_perc }}<br />
-                    Biggest Win &pound;: {{ $biggest_win_amount }}<br />
+                    Biggest Win &pound: {{ $biggest_win_amount }}<br />
+                    Avg Win %: {{ number_format($avg_win_perc, 2) }} %<br />
                 </div>
             </div>
         </div>

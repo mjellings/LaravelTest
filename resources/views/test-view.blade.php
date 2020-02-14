@@ -13,7 +13,7 @@
             <div class="card">
                 <div class="card-header">Game: {{ $game->id }}</div>
                 <div class="card-body">
-                    <p>Win Odds: {{ $game->win_odd }}</p>
+                    <p>Win Odds: {{ number_format($game->win_odd, 2) }} %</p>
                     <p>Start Balance: &pound; {{ number_format($game->start, 2, '.', ',') }}</p>
                     <p>Finish Balance: &pound; {{ number_format($game->finish, 2, '.', ',') }}</p>
                     <p>Rounds: {{ count($game->turns) }}</p>
@@ -23,6 +23,7 @@
                                 <th>Turn</th>
                                 <th>Balance</th>
                                 <th>Bet</th>
+                                <th>Number</th>
                                 <th>Result</th>
                                 <th>New Balance</th>
                             </tr>
@@ -33,6 +34,7 @@
                                 <td class="{{ $turn['win'] == 1 ? 'win' : 'lose' }}">{{ $turn->turn }}</td>
                                 <td class="{{ $turn['win'] == 1 ? 'win' : 'lose' }}">&pound; {{ number_format($turn->balance_before, 2, '.', ',') }}</td>
                                 <td class="{{ $turn['win'] == 1 ? 'win' : 'lose' }}">&pound; {{ number_format($turn->bet, 2, '.', ',') }}</td>
+                                <td class="{{ $turn['win'] == 1 ? 'win' : 'lose' }}">{{ $turn->result }}</td>
                                 <td class="{{ $turn['win'] == 1 ? 'win' : 'lose' }}">{{ $turn['win'] == 1 ? 'win' : 'lose' }}</td>
                                 <td class="{{ $turn['win'] == 1 ? 'win' : 'lose' }}">&pound; {{ number_format($turn->balance_after, 2, '.', ',') }}</td>
                             </tr>
