@@ -66,7 +66,7 @@ class RouletteWithNumbers {
             $this->plays[] = $play;
             $this->current_play++;
             if ($this->current_play > $this->max_plays) { $this->can_play = false; $this->final_play = $play; }
-            if ($this->current_cash <= 0) { $this->can_play = false; $this->final_play = $play; }
+            if ($this->current_cash < $this->current_bet) { $this->can_play = false; $this->final_play = $play; }
         }
 
         $this->data['plays'] = $this->plays;

@@ -40,7 +40,7 @@ class RouletteGenerateWithNumbers extends Command
      */
     public function handle()
     {
-        $start_cash = 100;
+        $start_cash = 20;
         $max_plays = 100;
 
         $total_games = 10;
