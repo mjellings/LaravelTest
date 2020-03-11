@@ -16,7 +16,7 @@ class RouletteController extends Controller
         $order = $request->input('order', 'DESC');
         if (!in_array($sort, array('id', 'finish'))) { $sort = 'id'; }
         if (!in_array($order, array('ASC', 'DESC'))) { $order = 'DESC'; }
-        $data['games'] = RouletteGame::with('turns')->orderBy($sort, $order)->simplePaginate(25);
+        $data['games'] = RouletteGame::orderBy($sort, $order)->simplePaginate(25);
 
         $all_games = RouletteGame::all();
 

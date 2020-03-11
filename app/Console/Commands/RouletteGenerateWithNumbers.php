@@ -50,17 +50,18 @@ class RouletteGenerateWithNumbers extends Command
 
         $this->info('Generating ' . $total_games . ' roulette game(s)');
 
+        $bet_per_number = 0.1;
         $numbers = array();
-        $numbers[0] = 0.2;
-        $numbers[4] = 0.2;
-        $numbers[7] = 0.2;
-        $numbers[10] = 0.2;
-        $numbers[11] = 0.2;
-        $numbers[16] = 0.2;
-        $numbers[17] = 0.2;
-        $numbers[18] = 0.2;
-        $numbers[24] = 0.2;
-        $numbers[25] = 0.2;
+        $numbers[0] = $bet_per_number;
+        $numbers[4] = $bet_per_number;
+        $numbers[7] = $bet_per_number;
+        $numbers[10] = $bet_per_number;
+        $numbers[11] = $bet_per_number;
+        $numbers[16] = $bet_per_number;
+        $numbers[17] = $bet_per_number;
+        $numbers[18] = $bet_per_number;
+        $numbers[24] = $bet_per_number;
+        $numbers[25] = $bet_per_number;
 
         $bar = $this->output->createProgressBar($total_games);
         $bar->start();
