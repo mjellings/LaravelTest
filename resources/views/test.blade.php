@@ -28,14 +28,13 @@
                             <?php
                             $settings = $game['settings'];
                             $final_play = $game['final_play'];
-                            $turns = $game->turns;
                             ?>
                             <tr>
                                 <td class="{{ ($game->finish > $game->start) ? 'win' : 'lose' }}"><a href="/test/{{ $game->id }}">{{ $game->id }}</a></td>
                                 <td class="{{ ($game->finish > $game->start) ? 'win' : 'lose' }}">{{ number_format($game->win_odd, 2) }} %</td>
                                 <td class="{{ ($game->finish > $game->start) ? 'win' : 'lose' }}">&pound; {{ number_format($game->start, 2, '.', ',') }}</td>
                                 <td class="{{ ($game->finish > $game->start) ? 'win' : 'lose' }}">&pound; {{ number_format($game->finish, 2, '.', ',') }}</td>
-                                <td class="{{ ($game->finish > $game->start) ? 'win' : 'lose' }}">{{ count($turns) }}</td>
+                                <td class="{{ ($game->finish > $game->start) ? 'win' : 'lose' }}">{{ $game->plays }}</td>
                             </tr>
                             @endforeach
                         </tbody>
