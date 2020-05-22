@@ -8,13 +8,15 @@ use LengthException;
 
 class GeneSequence {
     public $genes = array();
- 
+    public $score = 0;
+
     function randomise() {
         $tmp = array();
         for ($i = 0; $i < 6; $i++) {
             $tmp[] = Gene::makeRandom();
         }
         $this->genes = $tmp;
+        $this->calcScore();
     }
 
     function getGeneSequence() {
@@ -25,12 +27,11 @@ class GeneSequence {
         return $tmp;
     }
 
-    function score() {
+    function calcScore() {
         $score = 0;
-        $values = array('Y' => 1, 'G' => 1, 'H' => 0, 'X' => -1, 'W' => -1);
         foreach ($this->genes as $gene) {
-            $score += $values[$gene->code];
+            $score = $score + $gene->score;
         }
-        return $score;
+        $this->score = $score;
     }
 }

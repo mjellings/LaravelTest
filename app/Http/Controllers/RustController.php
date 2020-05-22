@@ -14,9 +14,25 @@ class RustController extends Controller
     }
 
     function genetics(Request $request) {
-        $crop = new GeneSequence();
-        $crop->randomise();
-        dd($crop);
+        $num_crops = 20;
+        $crops = array();
+        for ($i = 0; $i < $num_crops; $i++) {
+            $crop = new GeneSequence();
+            $crop->randomise();
+            $crops[] = $crop;
+        }
+        
+        usort($crops, function ($a, $b) {
+            return $b->score > $a->score;
+        });
+
+        $i = 0;
+        foreach ($crops as $crop) {
+            echo $i . ": " . $crop->getGeneSequence() . " Score: " . $crop->score . "<br />\n";
+            $i++;
+        }
+
+        dd($crops);
     }
 
     function genetics_post(Request $request) {
