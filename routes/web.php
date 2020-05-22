@@ -23,3 +23,7 @@ Route::post('/spin', 'SpinController@index')->name('spin');
 
 Route::get('/test/{id}', 'RouletteController@view');
 Route::get('/test', 'RouletteController@index');
+
+Route::post('/rust/genetics', 'RustController@genetics_post');
+Route::get('/rust/genetics', 'RustController@genetics');
+Route::get('/rust', 'RustController@index');
