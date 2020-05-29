@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\GenePool;
 use Illuminate\Http\Request;
 use App\Http\GeneSequence;
 
@@ -14,30 +15,18 @@ class RustController extends Controller
     }
 
     function genetics(Request $request) {
-        $num_crops = 60;
-        $crops = array();
-        for ($i = 0; $i < $num_crops; $i++) {
-            $crop = new GeneSequence();
-            $crop->randomise();
-            $crops[] = $crop;
+        $num_crops = 50;
+        $pool = new GenePool($num_crops);
+        for ($i = 0; $i < 10; $i++) {
+            $pool->breed();
         }
+        //echo '<pre>'; print_r($pool); echo '</pre>'; die();
+
         
-        usort($crops, function ($a, $b) {
-            return $b->score > $a->score;
-        });
-
-        $i = 0;
-        foreach ($crops as $crop) {
-            //echo $i . ": " . $crop->getGeneSequence() . " Score: " . $crop->score . "<br />\n";
-            $i++;
-        }
-
         $data = array();
+
+        /*
         $data['crops'] = $crops;
-
-        $starter = $crops[0];
-        $new_crop = $starter->CrossBreed(array($crops[1], $crops[2]), $crops[3], $crops[4]);
-
         $data['starter'] = $starter;
         $data['children'][0] = $crops[1];
         $data['children'][1] = $crops[2];
@@ -46,6 +35,9 @@ class RustController extends Controller
         $data['new_crop'] = $new_crop;
         
         return view('rust.genetics', $data);
+        */
+        $data['pool'] = $pool;
+        return view('rust.pool', $data);
     }
 
     function genetics_post(Request $request) {
