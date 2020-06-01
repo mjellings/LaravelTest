@@ -24,7 +24,7 @@ class GenePool {
 
     function sort_pool() {
         usort($this->crops, function ($a, $b) {
-            return $b->score < $a->score;
+            return $b->score > $a->score;
         });
     }
 

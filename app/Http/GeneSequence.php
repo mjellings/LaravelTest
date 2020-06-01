@@ -28,14 +28,23 @@ class GeneSequence {
         return $tmp;
     }
 
+    function getGeneSequenceSorted() {
+        $parts = str_split($this->getGeneSequence());
+        sort($parts);
+        return implode('', $parts);
+    }
+
     function calcScore() {
         $perfect_score = 14;
         $score = 0;
         foreach ($this->genes as $gene) {
             $score = $score + $gene->score;
         }
-        $score = 14 - $score;
-        if ($score < 0) { $score = $score * -1; }
+        //$score = 14 - $score;
+        //if ($score < 0) { $score = $score * -1; }
+
+
+
         $this->score = $score;
     }
 

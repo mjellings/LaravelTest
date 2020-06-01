@@ -50,7 +50,7 @@
                                 <td class="gene gene-{{ $starter->genes[3]->code }}">{{ $starter->genes[3]->code }}</td> 
                                 <td class="gene gene-{{ $starter->genes[4]->code }}">{{ $starter->genes[4]->code }}</td> 
                                 <td class="gene gene-{{ $starter->genes[5]->code }}">{{ $starter->genes[5]->code }}</td>
-                                <td>{{ $starter->score }}</td>
+                                <td>{{ $starter->score }} {{ $starter->getGeneSequenceSorted() }}</td>
                                 <td>Parent</td>
                             </tr>
                             <tr>

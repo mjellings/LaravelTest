@@ -32,7 +32,7 @@ class Gene {
     }
 
     function calcScore() {
-        $values = array('G' => 3, 'Y' => 2, 'H' => -2, 'X' => -3, 'W' => -5);
+        $values = array('G' => 3, 'Y' => 2, 'H' => 0, 'X' => -5, 'W' => -5);
         $this->score = $values[$this->code];
     }
 }
