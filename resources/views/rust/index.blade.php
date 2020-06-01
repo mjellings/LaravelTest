@@ -31,6 +31,7 @@
                                     {{ __('Submit') }}
                                 </button>
 
+                                <a href="/rust/genetics" class="btn btn-primary">Random</a>
                             </div>
                         </div>
                     </form>

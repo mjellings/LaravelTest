@@ -7,36 +7,70 @@ use App\Http\Gene;
 use LengthException;
 
 class GenePool {
-    public $num_crops = 50;
-    public $crops = array();
+    public $num_genes = 50;
+    public $genes = array();
     public $history = array();
-    function __construct($num_crops = 50) {
-        $this->$num_crops = $num_crops;
 
-        for ($i = 0; $i < $num_crops; $i++) {
-            $crop = new GeneSequence();
-            $crop->randomise();
-            $this->crops[] = $crop;
+    /*
+    function __construct($num_genes = 50) {
+        $this->$num_genes = $num_genes;
+
+        for ($i = 0; $i < $num_genes; $i++) {
+            $gene = new GeneSequence();
+            $gene->randomise();
+            $this->genes[] = $gene;
         }
         
         $this->sort_pool();
     }
+    */
+
+    public static function makeSpecific($genes = array()) {
+        $pool = new GenePool();
+        
+        if (count($genes)) {
+            foreach ($genes as $gene_string) {
+                $gene_sequence = new GeneSequence();
+                $gene_sequence->fromString($gene_string);
+                $pool->genes[] = $gene_sequence;
+            }
+
+            $pool->sort_pool();
+        }
+
+        return $pool;
+    }
+
+    public static function makeRandom($num_genes = 50) {
+        $pool = new GenePool();
+        $pool->num_genes = $num_genes;
+
+        for ($i = 0; $i < $num_genes; $i++) {
+            $gene = new GeneSequence();
+            $gene->randomise();
+            $pool->genes[] = $gene;
+        }
+        
+        $pool->sort_pool();
+
+        return $pool;
+    }
 
     function sort_pool() {
-        usort($this->crops, function ($a, $b) {
+        usort($this->genes, function ($a, $b) {
             return $b->score > $a->score;
         });
     }
 
     function find_donors($count = 4) {
         $donors = array();
-        $iterations = count($this->crops);
+        $iterations = count($this->genes);
         $i = 0;
         while ($i < $iterations) {
             
-            for ($j = 1; $j < count($this->crops); $j++) {
+            for ($j = 1; $j < count($this->genes); $j++) {
                 $existing = false;
-                $temp_crop = $this->crops[$j];
+                $temp_crop = $this->genes[$j];
                 foreach ($donors as $donor) {
                     if ($donor->getGeneSequence() == $temp_crop->getGeneSequence()) {
                         $existing = true;
@@ -51,11 +85,11 @@ class GenePool {
     }
 
     function breed() {
-        $starter = $this->crops[mt_rand(0, 5)];
+        $starter = $this->genes[mt_rand(0, 5)];
         //$starter = $this->crops[0];
         $donors = $this->find_donors(4);
         $new_crop = $starter->CrossBreed($donors);
-        $this->crops[] = $new_crop;
+        $this->genes[] = $new_crop;
         $this->sort_pool();
         $data = array();
         $data['starter'] = $starter;

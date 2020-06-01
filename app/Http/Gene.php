@@ -33,6 +33,10 @@ class Gene {
 
     function calcScore() {
         $values = array('G' => 3, 'Y' => 2, 'H' => 0, 'X' => -5, 'W' => -5);
-        $this->score = $values[$this->code];
+        if (isset($values[$this->code])) {
+            $this->score = $values[$this->code];
+        } else {
+            $this->score = -99;
+        }
     }
 }

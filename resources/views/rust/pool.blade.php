@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="card">
-                <div class="card-header">Gene Pool ({{ count($pool->crops) }} crops)</div>
+                <div class="card-header">Gene Pool ({{ count($pool->genes) }} crops)</div>
 
                 <div class="card-body">
 
@@ -16,7 +16,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach ($pool->crops as $crop)
+                    @foreach ($pool->genes as $crop)
                     <tr>
                         @foreach ($crop->genes as $gene)
                         <td class="gene gene-{{ $gene->code }}">{{ $gene->code }}</td>

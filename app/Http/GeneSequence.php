@@ -20,6 +20,17 @@ class GeneSequence {
         $this->calcScore();
     }
 
+    function fromString($input = "") {
+        if ($input && strlen($input) == 6) {
+            $tmp = array();
+            for ($i = 0; $i < 6; $i++) {
+                $tmp[] = Gene::makeSpecific(substr($input,$i, 1));
+            }
+            $this->genes = $tmp;
+            $this->calcScore();
+        }
+    }
+
     function getGeneSequence() {
         $tmp = '';
         foreach ($this->genes as $gene) {
@@ -43,7 +54,17 @@ class GeneSequence {
         //$score = 14 - $score;
         //if ($score < 0) { $score = $score * -1; }
 
-
+        switch ($this->getGeneSequenceSorted()) {
+            case "GGGGGY":
+                $score = 15;
+                break;
+            case "GGGGGG":
+                $score = 13;
+                break;
+            case "GGGGYY":
+                $score = 50;
+                break;
+        }
 
         $this->score = $score;
     }
