@@ -77,20 +77,47 @@ class RustController extends Controller
         # Split into individual lines
         $tmp = explode("\n", $input);
 
+        
+
         # Pass input lines onto the GenePool class to create a new instance with specific gene codes
         $pool = GenePool::makeSpecific($tmp);
 
         # Loop a few times and tell the pool to breed
+        /*
         for ($i = 0; $i < 100; $i++) {
             $pool->breed();
         }
+        */
+
+        #main loop
+        $best_found = false;
+        $iterations = 0;
+
+        $new_pool = clone $pool;
+        
+        $new_pool->breedAll();
+
 
         # Prepare view data
         $data = array();
-        $data['pool'] = $pool;
+        $data['pool'] = $new_pool;
 
         # Show view
         return view('rust.pool', $data);
         
+    }
+
+    function get_combinations($arrays) {
+        $result = array(array());
+        foreach ($arrays as $property => $property_values) {
+            $tmp = array();
+            foreach ($result as $result_item) {
+                foreach ($property_values as $property_key => $property_value) {
+                    $tmp[] = $result_item + array($property_key => $property_value);
+                }
+            }
+            $result = $tmp;
+        }
+        return $result;
     }
 }

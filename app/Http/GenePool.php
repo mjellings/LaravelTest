@@ -10,6 +10,7 @@ class GenePool {
     public $num_genes = 50;
     public $genes = array();
     public $history = array();
+    public $best_found = false;
 
     /*
     function __construct($num_genes = 50) {
@@ -96,5 +97,61 @@ class GenePool {
         $data['donors'] = $donors;
         $data['new_crop'] = $new_crop;
         $this->history[] = $data;
+
+        if ($new_crop->getGeneSequenceSorted() == 'GGGGYY') {
+            $this->best_found = true;
+        }
+    }
+
+    function breedSpecific($parent = null, $donors = array()) {
+        $starter = $parent;
+        //$starter = $this->crops[0];
+        $donors = $donors;
+        $new_crop = $starter->CrossBreed($donors);
+        $this->genes[] = $new_crop;
+        $this->sort_pool();
+        $data = array();
+        $data['starter'] = $starter;
+        $data['donors'] = $donors;
+        $data['new_crop'] = $new_crop;
+        $this->history[] = $data;
+
+        if ($new_crop->getGeneSequenceSorted() == 'GGGGYY') {
+            $this->best_found = true;
+        }
+    }
+
+    function breedAll() {
+        $this->sort_pool();
+        $combinations = $this->getCombinationsFromPool();
+        $i = 0;
+        $total = count($combinations) - 1;
+        while (!$this->best_found && $i < $total) {
+            $this->breedSpecific($combinations[$i]['parent'], $combinations[$i]['donors']);
+            $i++;
+        }
+        if ($this->best_found) { 
+            dd($this->history[count($this->history)-1]); 
+        }
+    }
+
+    function getCombinationsFromPool() {
+        $combinations=[];
+
+        $gene_count = count($this->genes);
+
+        for ($a = 0; $a < $gene_count; $a++) {
+            for ($b = 0; $b < $gene_count; $b++) {
+                for ($c = 0; $c < $gene_count; $c++) {
+                    for ($d = 0; $d < $gene_count; $d++) {
+                        for ($e = 0; $e < $gene_count; $e++) {
+                            //$combinations[] = $this->genes[$a] . '|' . $this->genes[$b] . '|' . $this->genes[$c] . '|' . $this->genes[$d];
+                            $combinations[] = array('parent' => $this->genes[$a], 'donors' => array($this->genes[$b], $this->genes[$c], $this->genes[$d], $this->genes[$e]));
+                        }
+                    }
+                }    
+            }
+        }    
+        return $combinations;
     }
 }
